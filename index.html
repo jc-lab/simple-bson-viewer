@@ -1,0 +1,36 @@
+<head>
+  <!-- Originally https://raw.github.com/mongodb/js-bson/master/browser_build/bson.js -->
+  <!-- But downloaded and hosted locally -->
+  <script src="https://bundle.run/buffer@5.4.2"></script>
+  <script>let Buffer = buffer.Buffer; let global = window; </script>
+  <script src="dist/bson.bundle.js"></script>
+</head>
+
+INPUT : <br />
+<textarea rows="20" cols="120" id="in"></textarea>
+<br />
+OUTPUT : <br />
+<input type="button" onclick="doit()" value="DECODE" />
+<br />
+<textarea rows="20" cols="120" id="out"></textarea>
+
+<script>
+
+function str2ab(str) {
+  var buf = new ArrayBuffer(str.length);
+  var bufView = new Uint8Array(buf);
+  for (var i = 0, strLen = str.length; i < strLen; i++) {
+    bufView[i] = str.charCodeAt(i);
+  }
+  return bufView;
+}
+
+function doit() {
+var binary = window.atob(document.getElementById("in").value);
+var buf = str2ab(binary);
+var bson = BSON;
+var out = bson.deserialize(buf);
+document.getElementById("out").value = JSON.stringify(out, null, 4);
+}
+
+</script>
