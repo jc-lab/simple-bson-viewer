@@ -26,7 +26,7 @@ function str2ab(str) {
 }
 
 function doit() {
-var binary = window.atob(document.getElementById("in").value);
+var binary = window.atob(document.getElementById("in").value.replace(/-/g, '+').replace(/_/g, '/'));
 var buf = str2ab(binary);
 var bson = BSON;
 var out = bson.deserialize(buf);
